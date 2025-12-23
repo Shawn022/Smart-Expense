@@ -1,44 +1,48 @@
-import { createContext, useContext , useEffect , useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/axios"
 
 const AuthContext = createContext();
 
-export const AuthProvider =({children}) => {
+export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-        const loadUser = async()=>{
-            try{
-                const {data} = await api.get("/users/profile")
-                setUser(data);
-            }catch{
+    useEffect(() => {
+        const loadUser = async () => {
+            try {
+                const storedUser = JSON.parse(localStorage.getItem("user"));
+
+                if (!storedUser?.token) {
+                    setUser(null);
+                } else {
+                    const { data } = await api.get("/users/profile");
+                    setUser(data);
+                }
+            } catch (error) {
+                console.error("Auth error:", error);
                 setUser(null);
-                setLoading(false);
-            }finally{
-                setLoading(false);
+            } finally {
+                setLoading(false); // 🔥 ALWAYS runs
             }
         };
 
-        if(localStorage.getItem("token")){
-            loadUser();
-        }
-    },[]);
+        loadUser();
+    }, []);
 
     const login = (token) => {
-        localStorage.setItem("token",token);
+        localStorage.setItem("token", token);
     };
 
-    const logout = ()=>{
+    const logout = () => {
         localStorage.removeItem("token");
         setUser(null);
     };
 
     return (
-        <AuthContext.Provider value={{user,setUser,login,logout,loading}}>
+        <AuthContext.Provider value={{ user, setUser, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );
 }
 
-export const useAuth =()=> useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
