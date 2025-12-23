@@ -8,7 +8,7 @@ const ProtectedRoute = ({children})=>{
     if(loading){
         return <div className="loader"></div>
     }
-    else if(!user){
+    if(!user){
         return <Navigate to="/login" replace />;
     }
 
