@@ -24,7 +24,7 @@ const Register = () => {
             const profile=await api.get("users/profile");
             setUser(profile.data);
 
-            navigate("/")
+            navigate("/dashboard")
         }catch(err){
             setError(err.response?.data?.message || "Registration Failed")
         }
