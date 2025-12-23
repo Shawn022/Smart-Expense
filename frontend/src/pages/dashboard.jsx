@@ -1,8 +1,8 @@
 import { useAuth } from "../context/authContext"
 import { useEffect, useState } from 'react'
 import { deleteExpense, getExpenses } from "../api/expenseApi";
-import { monthlyTotals, categoryTotals, totalExpense , netBalance } from "../api/analyticsApi";
-import {getIncomes} from "../api/incomeApi"
+import { monthlyTotals, categoryTotals, totalExpense, netBalance } from "../api/analyticsApi";
+import { getIncomes } from "../api/incomeApi"
 import ExpenseForm from "../components/expenseForm";
 import ExpenseList from "../components/expenseList";
 import IncomeList from "../components/incomeList"
@@ -11,7 +11,7 @@ import MonthlyBarChart from "../components/MonthlyBarChart";
 
 const Dashboard = () => {
   const [expenses, setExpenses] = useState([]);
-  const [incomes , setIncomes] = useState([]);
+  const [incomes, setIncomes] = useState([]);
 
   const [form, setForm] = useState("", 0, "");
   const [showForm, setShowForm] = useState(false);
@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   const [categoryData, setCategoryData] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
-  const [balance , setBalance] = useState({});
+  const [balance, setBalance] = useState({});
   const [total, setTotal] = useState(0);
 
   const { logout } = useAuth();
@@ -31,20 +31,20 @@ const Dashboard = () => {
       setExpenses(res.data);
       const res2 = await getIncomes();
       setIncomes(res2.data);
-      console.log(res2.data) 
+      console.log(res2.data)
     };
 
     loadData();
     loadAnalytics();
   }, [])
 
-  const loadAnalytics= async() => {
-      setCategoryData(await categoryTotals());
-      setMonthlyData(await monthlyTotals());
-      setTotal(await totalExpense());
-      const bal = await netBalance();
-      setBalance(bal.data);
-    }
+  const loadAnalytics = async () => {
+    setCategoryData(await categoryTotals());
+    setMonthlyData(await monthlyTotals());
+    setTotal(await totalExpense());
+    const bal = await netBalance();
+    setBalance(bal.data);
+  }
 
   const addExpenseHandler = async (expense) => {
     setExpenses(prev => [...prev, expense]);
@@ -113,7 +113,7 @@ const Dashboard = () => {
               >
                 📋 Incomes
               </button>
-              
+
               <button
                 className={`flex-1 py-4 px-6 text-center font-medium transition-colors duration-200 ${isActive("monthly")}`}
                 onClick={() => setWindow("monthly")}
@@ -157,11 +157,11 @@ const Dashboard = () => {
 
               {window === "incomes" &&
                 <div className="space-y-6">
-                  
+
                   <IncomeList
                     incomes={incomes}
                     setIncomes={setIncomes}
-                    loadAnalytics = {loadAnalytics}
+                    loadAnalytics={loadAnalytics}
                   />
                 </div>
               }
