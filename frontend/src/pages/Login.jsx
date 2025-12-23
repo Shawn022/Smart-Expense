@@ -26,7 +26,7 @@ const Login = () => {
             const profile = await api.get("users/profile")
             setUser(profile.data);
 
-            navigate("/dashboard");
+            navigate("/");
         }catch(err){
             setError(err.response?.data?.message || "login Failed");
         }
