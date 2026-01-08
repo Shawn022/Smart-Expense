@@ -8,8 +8,8 @@ The project is built using the MERN stack and follows real-world backend and fro
 
 ## 🚀 Live Demo
 
-- Frontend: https://your-vercel-url.vercel.app  
-- Backend API: https://your-render-url.onrender.com  
+- Frontend: https://smart-expense-phi.vercel.app 
+- Backend API: https://smart-expense-la2q.onrender.com 
 
 > Replace the URLs after deployment.
 
