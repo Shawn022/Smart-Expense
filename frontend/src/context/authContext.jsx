@@ -10,9 +10,9 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const loadUser = async () => {
             try {
-                const storedUser = JSON.parse(localStorage.getItem("user"));
+                const storedUser = JSON.parse(localStorage.getItem("token"));
 
-                if (!storedUser?.token) {
+                if (!storedUser) {
                     setUser(null);
                 } else {
                     const { data } = await api.get("/users/profile");
