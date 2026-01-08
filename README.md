@@ -11,7 +11,6 @@ The project is built using the MERN stack and follows real-world backend and fro
 - Frontend: https://smart-expense-phi.vercel.app 
 - Backend API: https://smart-expense-la2q.onrender.com 
 
-> Replace the URLs after deployment.
 
 ---
 
